@@ -96,6 +96,10 @@ button:focus, button:hover{
   color: var(--Bright-Blue);
 }
 
+.dark  button:hover{
+  color: white;
+}
+
 /* Dark mode */
 .dark-mode{
   margin-right: 25px;
