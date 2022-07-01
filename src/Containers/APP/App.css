@@ -1,0 +1,156 @@
+
+.header{
+  height: 300px;
+  background-image: url('../../../public/images/bg-desktop-light.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.dark .header{
+  background-image: url(../../../public/images/bg-desktop-dark.jpg);
+}
+
+.contenu{
+  position: relative;
+  height: 600px;
+  background: var(--Very-Light-Grayish-Blue);
+}
+
+
+
+.todo{
+  width: 40%;
+  position: absolute;
+  top: 7%;
+  left: 30%;
+}
+
+.entete{
+  display: flex;
+  justify-content: space-between;
+  color: white;
+}
+
+h3{
+  letter-spacing: 20px;
+  font-weight: bold;
+}
+
+
+form {
+  width: 100%;
+  padding: 20px 30px;
+  transition: .1s;
+  margin: 30px 0px 50px 0px;
+  background-color: var(--bg-task);
+  color: var(--Light-Grayish-Blue);
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+}
+
+.form input {
+  border: none;
+  margin-left: 15px;
+  font-weight: 500;
+}
+.App{
+  position: relative;
+}
+
+.task {
+  padding: 15px 30px;
+  transition: .1s;
+  background-color: var(--bg-task);
+  color: var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+}
+
+.task-element-3{
+  display: none;
+}
+.info{
+  margin-top: 50px;
+  text-align: center;
+  color: var(--Dark-Grayish-Blue);
+  font-weight: bold;
+}
+
+button{
+  margin-left: 30px;
+  border: none;
+  background-color: var(--bg-task);
+  color: var(--Dark-Grayish-Blue);
+}
+
+button:focus, button:hover{
+  color: var(--Bright-Blue);
+}
+
+/* Dark mode */
+.dark-mode{
+  margin-right: 25px;
+}
+
+/* Footer Frontend Mentor */
+.attribution { font-size: 11px; text-align: center; }
+.attribution a { color: hsl(228, 45%, 44%); }
+
+/* Responsive */
+@media screen and (max-width: 762px) {
+  .todo{
+    left: 5%;
+    width: 90%;
+  }
+
+  .header{
+    background-image: url(../../../public/images/bg-mobile-light.jpg);
+  }
+
+  .dark .header{
+    background-image: url(../../../public/images/bg-mobile-dark.jpg);
+  }
+
+  .header {
+    height: 200px;
+  }
+
+  form{
+    padding: 15px 30px;
+    margin: 20px 0px 15px 0px;
+  }
+
+  .todo{
+    top: 3%;
+  }
+
+  .task-element-2{
+    display: none;
+  }
+
+  .task-element-3{
+    margin-top: 30px;
+    padding: 15px 30px;
+    transition: .1s;
+    background-color: var(--bg-task);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+  }
+
+  .info{
+    margin-top: 25px;
+  }
+}
