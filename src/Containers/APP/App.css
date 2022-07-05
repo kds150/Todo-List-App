@@ -1,3 +1,31 @@
+:root {
+  /* Couleurs primaires */
+  --Bright-Blue: hsl(220, 98%, 61%);
+  --Check-Background: linear-gradient(to bottom, hsl(192, 100%, 67%) 65%, hsl(280, 87%, 65%));
+
+
+  --Very-Light-Gray: hsl(0, 0%, 98%);
+  --Very-Light-Grayish-Blue: hsl(236, 33%, 92%);
+  --Light-Grayish-Blue: hsl(233, 11%, 84%);
+  --Dark-Grayish-Blue: hsl(236, 9%, 61%);
+  --Very-Dark-Grayish-Blue: hsl(235, 19%, 35%);
+  --bg-task: white;
+  --white: white;
+  --black: black;
+  --task-hover: hsl(280, 87%, 65%);
+}
+
+.dark {
+--Very-Light-Grayish-Blue: hsl(235, 21%, 11%);
+--bg-task: hsl(235, 24%, 19%);
+--white: black;
+--black: white;
+--Light-Grayish-Blue: hsl(237, 49%, 49%);
+}
+
+body{
+  background: var(--Very-Light-Grayish-Blue);
+}
 
 .header{
   height: 300px;
@@ -11,19 +39,13 @@
   background-image: url(../../../public/images/bg-desktop-dark.jpg);
 }
 
-.contenu{
-  position: relative;
-  height: 600px;
-  background: var(--Very-Light-Grayish-Blue);
-}
-
-
 
 .todo{
   width: 40%;
   position: absolute;
-  top: 7%;
+  top: 8%;
   left: 30%;
+  padding-bottom: 70px;
 }
 
 .entete{
@@ -58,11 +80,8 @@ form {
   margin-left: 15px;
   font-weight: 500;
 }
-.App{
-  position: relative;
-}
 
-.task {
+.Btn {
   padding: 15px 30px;
   transition: .1s;
   background-color: var(--bg-task);
@@ -75,7 +94,7 @@ form {
   box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
 }
 
-.task-element-3{
+.Btn-element-3{
   display: none;
 }
 .info{
@@ -105,12 +124,9 @@ button:focus, button:hover{
   margin-right: 25px;
 }
 
-/* Footer Frontend Mentor */
-.attribution { font-size: 11px; text-align: center; }
-.attribution a { color: hsl(228, 45%, 44%); }
-
 /* Responsive */
-@media screen and (max-width: 762px) {
+
+@media screen and (max-width: 768px) {
   .todo{
     left: 5%;
     width: 90%;
@@ -132,16 +148,17 @@ button:focus, button:hover{
     padding: 15px 30px;
     margin: 20px 0px 15px 0px;
   }
+  
 
   .todo{
     top: 3%;
   }
 
-  .task-element-2{
+  .Btn-element-2{
     display: none;
   }
 
-  .task-element-3{
+  .Btn-element-3{
     margin-top: 30px;
     padding: 15px 30px;
     transition: .1s;

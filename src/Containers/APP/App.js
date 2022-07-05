@@ -1,10 +1,14 @@
 // Librairies
 import React, { useState, useEffect } from "react";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 import "./App.css";
 
-// Composents
+
+// Components
 import Task from "../../Components/Task/Task";
+import Button from "../../Components/Button/Button";
+import Form from "../../Components/Form/Form";
+
 
 function App() {
   const getLocalItmes = () => {
@@ -29,7 +33,7 @@ function App() {
     localStorage.setItem("todos", JSON.stringify(tasks));
   }, [tasks]);
 
-  // Methodes
+  // Methods
   const changeInputHandler = (e) => {
     setInput(e.target.value);
   };
@@ -49,20 +53,29 @@ function App() {
   const doneClickedHandler = (id) => {
     const newTask = tasks.map((task) => {
       if (task.id === id) {
-        const update = task.done
-        return { ...task, done: !update }
+        const update = task.done;
+        return { ...task, done: !update };
       }
-      return task
-    })
+      return task;
+    });
 
-    setTasks(newTask)
+    setTasks(newTask);
   };
 
   const removeClickedHandler = (id) => {
-    setTasks((prev) => [...prev.filter((task) => task.id !== id)])
+    setTasks((prev) => [...prev.filter((task) => task.id !== id)]);
   };
 
-  // Methodes Partie filtrage
+  // Methods filtered
+  const filteredTasks = () => {
+    if (status === "all") {
+      return tasks;
+    } else if (status === "active") {
+      return tasks.filter((task) => !task.done);
+    } else if (status === "completed") {
+      return tasks.filter((task) => task.done);
+    }
+  };
 
   const clearAllCompletedHandler = () => {
     const newTask = [...tasks];
@@ -88,11 +101,10 @@ function App() {
   };
 
   const showCompletedHandler = () => {
-    setStatus("completed")
+    setStatus("completed");
   };
-  
 
-  // Methodes dark mode
+  // Methods dark mode
   const changeModeHandler = () => {
     setDarkMode(!darkMode);
     if (darkMode) {
@@ -102,29 +114,18 @@ function App() {
     }
   };
 
-  const filteredTasks = () => {
-    if (status === 'all') {
-      return tasks
-    } else if (status === 'active') {
-      return tasks.filter((task) => !task.done)
-    } else if (status === 'completed') {
-      return tasks.filter((task) => task.done)
-    }
-  }
-  
-
   // Variables
-  const taskDisplayed = filteredTasks().map(task => {
-        return (
-          <Task
-            key={task.id}
-            content={task.content}
-            done={task.done}
-            doneClicked={() => doneClickedHandler(task.id)}
-            removeClicked={() => removeClickedHandler(task.id)}
-          />
-        );
-      })
+  const taskDisplayed = filteredTasks().map((task) => {
+    return (
+      <Task
+        key={task.id}
+        content={task.content}
+        done={task.done}
+        doneClicked={() => doneClickedHandler(task.id)}
+        removeClicked={() => removeClickedHandler(task.id)}
+      />
+    );
+  });
 
   const themeInput = darkMode ? "text-white" : "text-dark";
 
@@ -148,11 +149,20 @@ function App() {
     </svg>
   );
 
+  const displayedTaskAlert =
+    tasks.length === 0 ? (
+      <div className="alert alert-danger text-center">Add new Todo</div>
+    ) : (
+      <div>{taskDisplayed}</div>
+    );
+
+
+
+
   // JSX
   return (
     <div className="App">
       <div className="header"></div>
-      <div className="contenu"></div>
       <div className="todo">
         <div className="entete">
           <div>
@@ -163,61 +173,27 @@ function App() {
           </div>
         </div>
 
-        <div className="form">
-          <form onSubmit={(e) => submittedHandler(e)}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="22"
-              fill="currentColor"
-              class="bi bi-circle"
-              viewBox="0 0 16 16"
-            >
-              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-            </svg>
-            <input
-              type="text"
-              className={`form-control ${themeInput}`}
-              value={input}
-              placeholder="Create a new todo"
-              onChange={(e) => changeInputHandler(e)}
-              style={{ background: `${inputColor}` }}
-            />
-          </form>
-        </div>
+        <Form
+        submitted = {(e) => submittedHandler(e)}
+        changeInput = {(e) => changeInputHandler(e)}
+        input = {input}
+        themeInput = {themeInput}
+        inputColor = {inputColor}
+        />
 
-        {taskDisplayed}
+        {displayedTaskAlert}
+        
+        <Button 
+          resultat = {resultat.length}
+          showAll = {showAllHandler}
+          showActive = {showActiveHandler}
+          showCompleted = {showCompletedHandler}
+          clearAllCompleted = {clearAllCompletedHandler}
+          />
 
-        <div className="task">
-          <div>
-            {" "}
-            <strong>{resultat.length}</strong> tasks left
-          </div>
-          <div className="task-element-2">
-            <button onClick={showAllHandler}>All</button>
-            <button onClick={showActiveHandler}>Active</button>
-            <button onClick={showCompletedHandler}>Completed</button>
-          </div>
-          <div onClick={clearAllCompletedHandler}>
-            <button>Clear Completed</button>
-          </div>
-        </div>
-        <div className="task-element-3">
-          <button onClick={showAllHandler}>All</button>
-          <button onClick={showActiveHandler}>Active</button>
-          <button onClick={showCompletedHandler}>Completed</button>
-        </div>
         <div className="info">
           <p>Drog and drop to reorder list</p>
         </div>
-      </div>
-
-      <div class="attribution">
-        Challenge by{" "}
-        <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">
-          Frontend Mentor
-        </a>
-        . Coded by <a href="https://github.com/kds150">Your Name Here</a>.
       </div>
     </div>
   );
