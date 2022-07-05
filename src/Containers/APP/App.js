@@ -1,5 +1,6 @@
 // Librairies
 import React, { useState, useEffect } from "react";
+import { v4 as uuidv4 } from 'uuid';
 import "./App.css";
 
 // Composents
@@ -22,7 +23,7 @@ function App() {
   const [tasks, setTasks] = useState(getLocalItmes());
   const [darkMode, setDarkMode] = useState(false);
   const [status, setStatus] = useState("all");
-  
+
   // UseEffect
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(tasks));
@@ -37,7 +38,7 @@ function App() {
     e.preventDefault();
 
     const newTask = {
-      id: new Date().getTime().toString(),
+      id: uuidv4(),
       content: input,
       done: false,
     };
@@ -73,13 +74,10 @@ function App() {
   };
 
   const resultat = tasks.filter(checkTask);
-  // console.log(resultat);
 
   function checkTask(task) {
     return task.done === false;
   }
-
-  console.log(status)
 
   const showAllHandler = () => {
     setStatus("all");
@@ -116,10 +114,10 @@ function App() {
   
 
   // Variables
-  const taskDisplayed = filteredTasks().map((task, index) => {
+  const taskDisplayed = filteredTasks().map(task => {
         return (
           <Task
-            key={index}
+            key={task.id}
             content={task.content}
             done={task.done}
             doneClicked={() => doneClickedHandler(task.id)}
