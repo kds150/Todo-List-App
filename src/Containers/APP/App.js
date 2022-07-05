@@ -20,12 +20,9 @@ function App() {
   // State
   const [input, setInput] = useState("");
   const [tasks, setTasks] = useState(getLocalItmes());
-  const [filtTasks, setFiltTasks] = useState(tasks);
   const [darkMode, setDarkMode] = useState(false);
-  const [status, setStatus] = useState(true);
-
-  // console.log(tasks);
-  // console.log(filtTasks);
+  const [status, setStatus] = useState("all");
+  
   // UseEffect
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(tasks));
@@ -40,6 +37,7 @@ function App() {
     e.preventDefault();
 
     const newTask = {
+      id: new Date().getTime().toString(),
       content: input,
       done: false,
     };
@@ -47,16 +45,20 @@ function App() {
     setInput("");
   };
 
-  const doneClickedHandler = (index) => {
-    const newTask = [...tasks];
-    newTask[index].done = !tasks[index].done;
-    setTasks(newTask);
+  const doneClickedHandler = (id) => {
+    const newTask = tasks.map((task) => {
+      if (task.id === id) {
+        const update = task.done
+        return { ...task, done: !update }
+      }
+      return task
+    })
+
+    setTasks(newTask)
   };
 
-  const removeClickedHandler = (index) => {
-    const newTask = [...tasks];
-    newTask.splice(index, 1);
-    setTasks(newTask);
+  const removeClickedHandler = (id) => {
+    setTasks((prev) => [...prev.filter((task) => task.id !== id)])
   };
 
   // Methodes Partie filtrage
@@ -76,25 +78,21 @@ function App() {
   function checkTask(task) {
     return task.done === false;
   }
+
+  console.log(status)
+
+  const showAllHandler = () => {
+    setStatus("all");
+  };
+
   const showActiveHandler = () => {
-    setFiltTasks(resultat);
-    setStatus(false);
+    setStatus("active");
   };
 
   const showCompletedHandler = () => {
-    const newTask = [...tasks];
-    const resultat = newTask.filter(checkTask);
-
-    function checkTask(task) {
-      return task.done === true;
-    }
-    setFiltTasks(resultat);
-    setStatus(false);
+    setStatus("completed")
   };
-  const showAllHandler = () => {
-    setFiltTasks(tasks);
-    setStatus(true);
-  };
+  
 
   // Methodes dark mode
   const changeModeHandler = () => {
@@ -106,22 +104,29 @@ function App() {
     }
   };
 
+  const filteredTasks = () => {
+    if (status === 'all') {
+      return tasks
+    } else if (status === 'active') {
+      return tasks.filter((task) => !task.done)
+    } else if (status === 'completed') {
+      return tasks.filter((task) => task.done)
+    }
+  }
+  
+
   // Variables
-  const taskDisplayed = status
-    ? tasks.map((task, index) => {
+  const taskDisplayed = filteredTasks().map((task, index) => {
         return (
           <Task
             key={index}
             content={task.content}
             done={task.done}
-            doneClicked={() => doneClickedHandler(index)}
-            removeClicked={() => removeClickedHandler(index)}
+            doneClicked={() => doneClickedHandler(task.id)}
+            removeClicked={() => removeClickedHandler(task.id)}
           />
         );
       })
-    : filtTasks.map((task, index) => {
-        return <Task key={index} content={task.content} done={task.done} />;
-      });
 
   const themeInput = darkMode ? "text-white" : "text-dark";
 
@@ -188,7 +193,7 @@ function App() {
         <div className="task">
           <div>
             {" "}
-            <strong>{resultat.length}</strong> items left
+            <strong>{resultat.length}</strong> tasks left
           </div>
           <div className="task-element-2">
             <button onClick={showAllHandler}>All</button>
